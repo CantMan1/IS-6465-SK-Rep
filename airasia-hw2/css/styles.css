@@ -394,6 +394,13 @@ textarea:focus-visible,
     line-height: 1.5;
 }
 
+.gift-card-copy .required-points {
+    margin-top: 5px;
+    color: var(--color-brand-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
 .page-card-details .gift-card-details {
     display: grid;
     gap: 14px;

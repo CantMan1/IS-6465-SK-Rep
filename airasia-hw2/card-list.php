@@ -25,6 +25,7 @@
                     <div class="gift-card-copy">
                         <h2><a href="card-details.php?id=amazon">Amazon Gift Card</a></h2>
                         <p>Shop books, electronics, home essentials, and more at Amazon.</p>
+                        <p class="required-points">1,000 points required</p>
                     </div>
                 </article>
                 <article class="gift-card-item">
@@ -34,6 +35,7 @@
                     <div class="gift-card-copy">
                         <h2><a href="card-details.php?id=starbucks">Starbucks Gift Card</a></h2>
                         <p>Enjoy coffee, tea, and treats at participating Starbucks stores.</p>
+                        <p class="required-points">1,000 points required</p>
                     </div>
                 </article>
                 <article class="gift-card-item">
@@ -43,6 +45,7 @@
                     <div class="gift-card-copy">
                         <h2><a href="card-details.php?id=airasia">AirAsia Travel Gift Card</a></h2>
                         <p>Put your points toward your next AirAsia trip and travel adventure.</p>
+                        <p class="required-points">2,000 points required</p>
                     </div>
                 </article>
             </div>
