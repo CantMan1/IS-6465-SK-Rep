@@ -20,6 +20,7 @@ Add the attached image to the card-list.php page. this image should be added as 
 clean up the styling with a modern css format. keep the overall layout the same, but update the page visuals to be sharp, symmetrical and modern
 update the submit button on card-add.php to simply redirect the user back to the card-list.php page when clicked. remove the error message
 update the submit button on card-update.php to simply redirect the user back to the card-list.php page when clicked. remove the error message
+Add the required points required for each gift card to the card-list.php page
 
 A brief explanation of how AI supported your work:
 AI removed a ton of the manual work required to translate my wireframe from the previous assignment
