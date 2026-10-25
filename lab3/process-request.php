@@ -41,7 +41,7 @@ $today = new DateTimeImmutable("today");
 $preferredDateTime = DateTimeImmutable::createFromFormat("!Y-m-d", $preferredDate);
 $validDate = $preferredDateTime !== false && $preferredDateTime->format("Y-m-d") === $preferredDate;
 
-if (!validDate) {
+if (!$validDate) {
     $errors["preferred_date"] = "Enter a valid preferred date.";
 } elseif ($preferredDateTime < $today) {
     $errors["preferred_date"] = "Preferred date cannot be in the past.";
