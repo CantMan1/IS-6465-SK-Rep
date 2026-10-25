@@ -1,0 +1,35 @@
+Tools used: 
+copilot AI in github
+chatgpt for the default gift card image
+
+Prompts:
+add a hyperlink that users can use to navigate from login.php to card-list.php
+add a title section to all .php files with the file title in the header so that the user knows what page they are currently on
+add a title section to all .php files under the "airasia-hw2" folder with the file title in the header so that the user knows what page they are currently on
+on all .php files under the "airasia-hw2" folder, excluding the login.php file, add a link to the header that links back to the card-list.php page
+remove the "back to card list" link for the card-list.php file
+add a css style to the styles.css file under the "airasia-hw2" that mimicks the attached wireframe, match each design in the wireframe with its corresponding .php file in the "airasia-hw2" folder
+update the login.php page to include any missing details in the attached screenshot (ss of wireframep page)
+update the card-update.php page to include any missing details in the attached screenshot
+for the login.php page, merge the functionality of the "view card list" button with the "login" button. When the user successfully logs in, the page they should be directed to should be the card list
+update the card-list.php page to include any missing details in the attached screenshot. Fill in the "gift card name" and "gift card description" with sample names and descriptions
+update the card-details.php page to include any missing details in the attached screenshot. Fill in the "gift card name" and "gift card description" with sample names and descriptions that correspond with card-list.php. Add links to card-list.php that, when the user clicks on a specific gift card title, directly links them to that card's details page.
+update the card-add.php page to include any missing details in the attached screenshot. Fill in the "gift card name" and "gift card description" with a "sample", or example text for what the user should enter in that field. The "cancel" button will bring the user back to the card-list.php page, and the "submit" button will display an error message saying "This feature has not yet been implmeneted."
+when the user selects the "submit" button, display an error message saying "This feature has not yet been implmeneted."
+Add the attached image to the card-list.php page. this image should be added as a placeholder file for where the actual gift card images will go
+clean up the styling with a modern css format. keep the overall layout the same, but update the page visuals to be sharp, symmetrical and modern
+update the submit button on card-add.php to simply redirect the user back to the card-list.php page when clicked. remove the error message
+update the submit button on card-update.php to simply redirect the user back to the card-list.php page when clicked. remove the error message
+
+A brief explanation of how AI supported your work:
+AI removed a ton of the manual work required to translate my wireframe from the previous assignment
+into a usable web format. It also made making large, blanket changes very easy and quick. 
+
+One example of an AI suggestion you tested, changed, or rejected:
+1. "on all .php files under the "airasia-hw2" folder, excluding the login.php file, add a link to the header that links back to the card-list.php page"
+2. "remove the "back to card list" link for the card-list.php file"
+
+Learning how to focus my prompts logically so that the ai did not take my requests too literally.
+My first prompt specifically asked for a link back to the card list page for all .php files except the login page,
+but I forgot to specify that the card list page itself does not need its own link back to itself. I had to follow up
+with a third prompt to remove the "card list" link from the "card list" page. 
