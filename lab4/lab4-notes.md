@@ -1,4 +1,4 @@
-After submitting a valid form from the request-form.php page, we are redirected to process-request.php where a summary of our requet is displayed.
+After submitting a valid form from the request-form.php page, we are redirected to process-request.php where a summary of our request is displayed.
 ![alt text](image-1.png)
 
 The header.php section provides a unified header for each .php page its applied to. This header includes the title of the web application: "Peer Tutoring Hub", and the title of the page the user is currently on.
