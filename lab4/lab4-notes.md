@@ -20,3 +20,51 @@ The purpose of the preferredtime control is to signify that only one response is
 The purpose of the preferreddate control is to allow php to check predefined conditions before allowing the result. When the user enteres a date into the date field, this date is then passed to process-request.php where php checks that the date is not in the past. php should be recieving a date string.
 
 The purpose of the form_name control is to point the controls within process-request.php towards the right data source. The server checks to verify that the data being received by process-request.php matches what was input in request-form.php. 
+
+Valid Test:
+Topics: Exam Review
+Preferred Time: Morning
+Course: IS6465
+Preferred Date: 11/23/2026
+Reason: 12345678910
+
+Request was accepted
+The message did display the application
+All business rules were checked
+
+
+Missing Value Test:
+Topics: Exam Review
+Preferred Time: Morning
+Course: IS6465
+Preferred Date: 11/23/2026
+Reason: 
+
+Request was rejected
+"Please fill out this field"
+The "What would you like help with?" text box was checked for the total number of entered characters.
+
+
+Past Date Test:
+Topics: Exam Review
+Preferred Time: Morning
+Course: IS6465
+Preferred Date: 09/23/2026
+Reason: 12345678910
+
+Request was rejected
+"Preferred Date Cannot be in the Past"
+The "Preferred Date" section checked to see if the entered date was in the past. 
+
+
+CRUD Action:        Page:
+Create              request-form.php
+Read one request    request-details.php
+Read all requests   requests.php
+Update              request-details.php
+Delete              request-details.php
+
+
+request_id= appears in the request details url
+A GET query parameter appropriate for viewing one request because it identifies which request to pull without altering any of the page data.
+An actual update or delete later use POST rather than GET because POST is designed to send information that changes data on the server, whereas GET is intended to only retrieve information. 
