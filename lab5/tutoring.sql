@@ -19,10 +19,19 @@ CREATE TABLE if not exists tutoring_requests (
 INSERT OR ignore INTO students (student_name, student_email)
 VALUES ('Maria Lopez', 'maria.lopez@example.com');
 
+INSERT OR ignore INTO students (student_name, student_email)
+VALUES 
+('Jordan Lee', 'jordan.lee@example.edu'),
+('Jordan Lee', 'alex.smith@example.edu'),
+('Avery Patel', 'avery.patel@example.edu');
+
 INSERT OR ignore INTO tutoring_requests
   (student_id, course, topic, preferred_date, preferred_time)
 VALUES
-  (1, 'IS 6465', 'PHP arrays and forms', '2026-11-03', '14:00');
+  (1, 'IS 6465', 'PHP arrays and forms', '2026-11-03', '14:00'),
+  (2, 'IS 6465', 'IS 6465, Forms, one future date and time', '2026-11-04', '15:00'),
+  (3, 'IS 6465', 'IS 6465, SQL SELECT, a different future date or time', '2026-11-05', '16:00'),
+  (4, 'IS 6465', 'IS 6465, SQLite CRUD, one future date and time', '2026-11-06', '17:00');
 
 select * from students;
 
