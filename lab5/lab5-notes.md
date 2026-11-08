@@ -63,3 +63,43 @@ A Where clause is essential in an update statement because it is the defining fa
 
 The Peer Tutoring Hub uses a 'Cancelled' status instead of deleting the entry so that historical data is retained in the even the student wants to reestablish their request.
 
+part5
+INSERT INTO students (student_id, student_name, student_email)
+VALUES (6, 'Robert Smith', 'robert.smith@delete.edu');
+
+DELETE FROM students
+WHERE student_id = 6;
+
+SELECT * FROM students;
+1|Maria Lopez|maria.lopez@example.com
+2|Jordan Lee|jordan.lee@example.edu
+3|Alex Smith|alex.smith@example.edu
+4|Avery Patel|avery.patel@example.edu
+5|John Smith|john.smith@example.edu
+
+A Where clause is essential for a Delete statement because it defines the condition for which entry should be deleted. 
+
+part6
+
+CRUD Action SQL Statement used in this lab                                      Peer Tutoring Hub Example
+
+Create      INSERT INTO students (student_id, student_name, student_email)      Add new student to the students table.
+            VALUES (6, 'Robert Smith', 'robert.smith@delete.edu');
+
+Read        SELECT * FROM students;                                             Read all the students from the students table.
+
+Update      UPDATE tutoring_requests                                            Update a student's id in the students table.
+            SET status = 'Cancelled'
+            WHERE student_id = 4;
+
+Delete      DELETE FROM students                                                Delete a student from the students table.
+            WHERE student_id = 6;   
+
+
+The database preserves the connection between student and that student's request through the student_id field.
+
+The database constraint that prevents two students from using the same email address is UNIQUE
+
+If an update or delete statment did not include a where clause, every row in the table could be deleted.
+
+When the application later receives values from an HTML form, PHP should send those values as parameters instead of placing them directly into SQL text to prevent SQL injection attacks. 
