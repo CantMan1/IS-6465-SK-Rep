@@ -23,10 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="page-login">
     <main class="page-shell">
-        <header class="page-header">
-            <p class="brand">AirAsia Rewards</p>
-            <h1>Login</h1>
-        </header>
+        <?php $pageTitle = 'Login'; require_once __DIR__ . '/includes/header.php'; ?>
         <section class="page-content">
             <form class="login-form" method="post">
                 <?php if ($loginError !== ''): ?>
@@ -42,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
             </form>
         </section>
+        <?php require_once __DIR__ . '/includes/footer.php'; ?>
     </main>
 </body>
 </html>

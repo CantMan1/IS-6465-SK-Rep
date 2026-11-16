@@ -14,10 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="page-card-add">
     <main class="page-shell">
-        <header class="page-header">
-            <p class="brand">AirAsia Rewards</p>
-            <h1>Add New Gift Card</h1>
-        </header>
+        <?php $pageTitle = 'Add New Gift Card'; require_once __DIR__ . '/includes/header.php'; ?>
         <section class="page-content">
             <form class="gift-card-form" method="post" enctype="multipart/form-data" novalidate>
                 <p class="required-note">*Required Field</p>
@@ -49,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </form>
         </section>
+        <?php require_once __DIR__ . '/includes/footer.php'; ?>
     </main>
 </body>
 </html>

@@ -38,10 +38,7 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
 </head>
 <body class="page-card-details">
     <main class="page-shell">
-        <header class="page-header">
-            <p class="brand">AirAsia Rewards</p>
-            <h1>Gift Card Details</h1>
-        </header>
+        <?php $pageTitle = 'Gift Card Details'; require_once __DIR__ . '/includes/header.php'; ?>
         <section class="page-content card-details-content">
             <article class="gift-card-details">
                 <img src="images/gift-card.png" alt="<?= $escape($giftCard['cardName']) ?>">
@@ -60,6 +57,7 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
             </article>
             <a class="back-to-cards" href="card-list.php">Back to Card List</a>
         </section>
+        <?php require_once __DIR__ . '/includes/footer.php'; ?>
     </main>
 </body>
 </html>

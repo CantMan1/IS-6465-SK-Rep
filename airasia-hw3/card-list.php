@@ -16,15 +16,11 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
 </head>
 <body class="page-card-list">
     <main class="page-shell">
-        <header class="page-header">
-            <p class="brand">AirAsia Rewards</p>
-            <nav class="card-list-actions" aria-label="Gift card actions">
-                <a href="card-add.php">Add Gift Card</a>
+        <?php $pageTitle = 'Available Gift Cards'; require_once __DIR__ . '/includes/header.php'; ?>
+        <section class="page-content card-list-content">
+            <nav class="card-list-actions" aria-label="Customer actions">
                 <button type="button" disabled title="Customer management is not available yet">Add Customer</button>
             </nav>
-        </header>
-        <section class="page-content card-list-content">
-            <h1>Available Gift Cards</h1>
             <div class="gift-card-list">
                 <?php foreach ($giftCards as $giftCard): ?>
                     <?php $detailUrl = 'card-details.php?id=' . rawurlencode((string) $giftCard['cardId']); ?>
@@ -41,6 +37,7 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
                 <?php endforeach; ?>
             </div>
         </section>
+        <?php require_once __DIR__ . '/includes/footer.php'; ?>
     </main>
 </body>
 </html>
