@@ -297,12 +297,12 @@ textarea:focus-visible,
 }
 
 .page-login .page-shell,
-.page-card-details .page-shell,
-.page-card-update .page-shell {
+.page-card-details .page-shell {
     width: min(100%, 480px);
 }
 
-.page-card-add .page-shell {
+.page-card-add .page-shell,
+.page-card-update .page-shell {
     width: min(100%, 680px);
 }
 
@@ -378,7 +378,8 @@ textarea:focus-visible,
     resize: vertical;
 }
 
-.page-card-add .gift-card-form {
+.page-card-add .gift-card-form,
+.page-card-update .gift-card-form {
     gap: 18px;
     padding: 24px;
 }
@@ -932,7 +933,8 @@ textarea:focus-visible,
         padding: 0 18px 18px;
     }
 
-    .page-card-add .gift-card-form {
+    .page-card-add .gift-card-form,
+    .page-card-update .gift-card-form {
         padding: 18px;
     }
 

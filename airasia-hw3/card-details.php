@@ -94,7 +94,7 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
                         Points: <?= number_format((int) $giftCard['points']) ?></p>
                 </div>
                 <div class="gift-card-detail-actions">
-                    <a href="card-update.php">Update Gift Card</a>
+                    <a href="card-update.php?id=<?= rawurlencode((string) $giftCard['cardId']) ?>">Update Gift Card</a>
                     <form class="delete-gift-card-form" method="post" action="card-details.php?id=<?= rawurlencode((string) $giftCard['cardId']) ?>" onsubmit="return confirm('Delete this gift card? This action cannot be undone.');">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="csrf_token" value="<?= $escape($_SESSION['gift_card_csrf_token']) ?>">
