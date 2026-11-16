@@ -57,7 +57,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             $deleteStatement->execute(['cardId' => $giftCard['cardId']]);
 
             if ($deleteStatement->rowCount() === 1) {
-                header('Location: card-list.php');
+                $_SESSION['deleted_gift_card_name'] = $giftCard['cardName'];
+                header('Location: card-delete.php');
                 exit;
             }
 

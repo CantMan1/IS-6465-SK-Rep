@@ -360,6 +360,15 @@ textarea:focus-visible,
     font-weight: 650;
 }
 
+.login-title {
+    margin: 0 0 18px;
+    color: var(--color-ink);
+    font-size: clamp(1.7rem, 5vw, 2.1rem);
+    font-weight: 650;
+    letter-spacing: -0.035em;
+    text-align: center;
+}
+
 .login-form input,
 .gift-card-form input:not([type="file"]),
 .gift-card-form textarea,
@@ -794,6 +803,68 @@ textarea:focus-visible,
     background: transparent;
     text-decoration: underline;
     text-underline-offset: 3px;
+}
+
+.page-card-delete .page-content {
+    display: block;
+}
+
+.delete-confirmation {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    padding: 28px 20px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: #f7fafb;
+    text-align: center;
+}
+
+.delete-confirmation-icon {
+    display: grid;
+    width: 52px;
+    height: 52px;
+    place-items: center;
+    border-radius: 50%;
+    color: #17684d;
+    background: #e3f4ed;
+    font-size: 1.6rem;
+    font-weight: 750;
+}
+
+.delete-confirmation h2,
+.delete-confirmation p {
+    margin: 0;
+}
+
+.delete-confirmation h2 {
+    color: var(--color-ink);
+    font-size: 1.3rem;
+}
+
+.delete-confirmation p {
+    color: var(--color-muted);
+    line-height: 1.5;
+}
+
+.page-card-delete .delete-return-button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+    padding: 10px 16px;
+    border: 1px solid var(--color-brand);
+    border-radius: 8px;
+    color: #fff;
+    background: var(--color-brand);
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.page-card-delete .delete-return-button:hover {
+    border-color: var(--color-brand-dark);
+    background: var(--color-brand-dark);
 }
 
 .required-note {

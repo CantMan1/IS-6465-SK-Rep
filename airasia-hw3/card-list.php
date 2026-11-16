@@ -18,9 +18,6 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
     <main class="page-shell">
         <?php $pageTitle = 'Available Gift Cards'; require_once __DIR__ . '/includes/header.php'; ?>
         <section class="page-content card-list-content">
-            <nav class="card-list-actions" aria-label="Customer actions">
-                <button type="button" disabled title="Customer management is not available yet">Add Customer</button>
-            </nav>
             <div class="gift-card-list">
                 <?php foreach ($giftCards as $giftCard): ?>
                     <?php $detailUrl = 'card-details.php?id=' . rawurlencode((string) $giftCard['cardId']); ?>
