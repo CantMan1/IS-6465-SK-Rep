@@ -1,12 +1,37 @@
 Tools used: 
 copilot AI in github
-chatgpt for the default gift card image
+
 
 Prompts:
+insert at least 5 account records and at least 20 gift card records. migrate the hard-coded gift cards from the card-details.php and card-list.php pages to the seed.sql file
+create a modern header in header.php, and apply it to all .php files using "require_once"
+create a modern footer in footer.php, and apply it to all .php files using "require_once"
+establish a PDO connection to the SQLite database in db.php. Use PDO prepared statements for all database queries that receive values from a form or URL parameter. Do not place the database connection code separately on every page.
+add the ability to delete a gift card on the card-details.php page.
+how is card_id validated before using it in a query?
+restructure card-add.php so that the form is more user-friendly. Do not change any of the required fields/data
+when the user clicks "submit" on card-add.php, what happens to the gift card details they input
+On card-add.php, add the necessary validations for each required field, and display an error if the user does not input the correct data (example: if they enter anything but numbers into the Points Required field)
+If the user passes all valiation checks when adding a new card, add those new card details to the appropriate sql tables so that the card-list.php page accurately reflects the new gift card
+update the card-update.php page to match the new layout for card-add.php page
+take the html and css styling you applied on card-add.php and apply it to card-update.php so that the pages match visually
+On card-update.php, add the necessary validations for each required field, and display an error if the user does not input the correct data (example: if they enter anything but numbers into the Points Required field). This should match what you did for card-add.php
+for card-update.php, add the related validation for each required field and display an error if the user does not input the correct data. (example: if they enter anything but numbers into the Points Required field, display an error. Same goes for the "card value" field)
+when the user clicks "submit" on card-update.php, what happens to the gift card details they updated
+If the user passes all valiation checks when updating a gift card, update those new card details to the appropriate sql tables so that the card-list.php page accurately reflects the new gift card details
+are gift cards deleted using a GET link?
+update card-delete to be a page that confirms that the gift card has been deleted. Once a user clicks the "delete" button, they should be redirected to card-delete.php where the site is confirming that the gift card was deleted. This page should provide a button for the user to return to the gift card list
+remove the "Add customer" button from the card-list.php page
+remove the header and footer from login.php
+Create reusable validation functions in includes/validation.php. At minimum, validate: Card Name is present and within a reasonable length Card Type is an allowed value Card Value is a positive number Points Required is a positive whole number Gift Card identifiers are valid integers. Use htmlspecialchars() when displaying values that came from a form or database record. 
+validation-tests.php must test your validation.php functions without adding, changing, or deleting database records. It should clearly display PASS or FAIL for each test. Include at least these five tests:
+TestExpected resultValid Gift Card dataPasses validationBlank Card NameFails validationAltered or invalid Card TypeFails validationZero or negative Card ValueFails validationInvalid Points RequiredFails validation
 
 
-A brief explanation of how AI supported your work:
+A brief explanation of how AI supported your work: 
+AI greatly supported this project by both generating the sample data for the gift card lists, but also generating the CRUD requirements and functionality needed to integrate the .sql features.
 
 
 One example of an AI suggestion you tested, changed, or rejected:
-
+The AI had a difficult time integrating the data validation for the update and add gift card pages. I had to check every condition and ensure that data was being both validated by the .php, and "cleansed" before being sent to the server for processing. 
+Ultimately, the Gift Card Type section needed to be narrowed so that the proper validations could be added. I opted to switch this section to a dropdown list intead of a free text box. 
