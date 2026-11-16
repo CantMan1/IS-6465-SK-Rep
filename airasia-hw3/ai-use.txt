@@ -26,6 +26,7 @@ remove the header and footer from login.php
 Create reusable validation functions in includes/validation.php. At minimum, validate: Card Name is present and within a reasonable length Card Type is an allowed value Card Value is a positive number Points Required is a positive whole number Gift Card identifiers are valid integers. Use htmlspecialchars() when displaying values that came from a form or database record. 
 validation-tests.php must test your validation.php functions without adding, changing, or deleting database records. It should clearly display PASS or FAIL for each test. Include at least these five tests:
 TestExpected resultValid Gift Card dataPasses validationBlank Card NameFails validationAltered or invalid Card TypeFails validationZero or negative Card ValueFails validationInvalid Points RequiredFails validation
+explain each of the validation tests included in validation-tests.php and validation.php
 
 
 A brief explanation of how AI supported your work: 
