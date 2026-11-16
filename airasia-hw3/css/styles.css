@@ -298,9 +298,12 @@ textarea:focus-visible,
 
 .page-login .page-shell,
 .page-card-details .page-shell,
-.page-card-add .page-shell,
 .page-card-update .page-shell {
     width: min(100%, 480px);
+}
+
+.page-card-add .page-shell {
+    width: min(100%, 680px);
 }
 
 .page-login .page-header,
@@ -375,6 +378,121 @@ textarea:focus-visible,
     resize: vertical;
 }
 
+.page-card-add .gift-card-form {
+    gap: 18px;
+    padding: 24px;
+}
+
+.card-add-intro {
+    display: grid;
+    gap: 6px;
+}
+
+.card-add-intro > p:last-child {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.form-error-summary {
+    padding: 12px 14px;
+    border: 1px solid #e8bfc1;
+    border-radius: 8px;
+    color: #8d262d;
+    background: #fff5f5;
+    font-size: 0.88rem;
+}
+
+.form-error-summary p {
+    margin: 0 0 5px;
+    font-weight: 700;
+}
+
+.form-error-summary ul {
+    display: grid;
+    gap: 3px;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.form-error-summary a {
+    display: inline;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    color: inherit;
+    background: transparent;
+    text-decoration: underline;
+}
+
+.form-error-summary a:hover {
+    transform: none;
+    border-color: transparent;
+    background: transparent;
+}
+
+.form-field-error {
+    margin: 0;
+    color: #a52b32;
+    font-size: 0.82rem;
+}
+
+.card-add-field input[aria-invalid="true"],
+.card-add-field textarea[aria-invalid="true"] {
+    border-color: #bf5960;
+}
+
+.card-add-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.card-add-field {
+    display: grid;
+    align-content: start;
+    gap: 7px;
+    min-width: 0;
+}
+
+.card-add-field--wide {
+    grid-column: 1 / -1;
+}
+
+.card-add-field label,
+.card-add-image legend {
+    color: #263c4c;
+    font-size: 0.9rem;
+    font-weight: 650;
+}
+
+.card-add-image {
+    display: grid;
+    gap: 10px;
+    min-width: 0;
+    margin: 0;
+    padding: 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+}
+
+.card-add-image legend {
+    padding: 0 5px;
+}
+
+.card-add-image legend span {
+    color: var(--color-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.card-add-image > p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.84rem;
+}
+
 .login-form input::placeholder,
 .gift-card-form input::placeholder,
 .gift-card-form textarea::placeholder {
@@ -417,7 +535,8 @@ textarea:focus-visible,
 }
 
 .login-error,
-.form-error {
+.form-error,
+.delete-error {
     margin: 0;
     color: #a52b32;
     font-size: 0.9rem;
@@ -643,6 +762,24 @@ textarea:focus-visible,
     background: #edf8f8;
 }
 
+.delete-gift-card-form {
+    flex: 1;
+    margin: 0;
+}
+
+.delete-gift-card-form button {
+    width: 100%;
+    border-color: #e4b7b9;
+    color: #a52b32;
+    background: #fff;
+    cursor: pointer;
+}
+
+.delete-gift-card-form button:hover {
+    border-color: #cf8589;
+    background: #fff5f5;
+}
+
 .page-card-details .back-to-cards {
     margin-top: 12px;
     border: 0;
@@ -793,6 +930,19 @@ textarea:focus-visible,
     .page-card-add .page-content,
     .page-card-update .page-content {
         padding: 0 18px 18px;
+    }
+
+    .page-card-add .gift-card-form {
+        padding: 18px;
+    }
+
+    .card-add-fields {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .card-add-field--wide {
+        grid-column: auto;
     }
 
     .page-card-list .card-list-content {

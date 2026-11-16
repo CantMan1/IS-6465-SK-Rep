@@ -3,7 +3,15 @@ $databasePath = __DIR__ . '/../database/rewards.db';
 $pdo = new PDO('sqlite:' . $databasePath);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+$shouldSeed = $pdo->query(
+    'SELECT 1 FROM sqlite_master WHERE type = \'table\' AND name = \'GIFTCARD\''
+)->fetchColumn() === false;
+
 foreach (['schema.sql', 'seed.sql'] as $sqlFile) {
+    if ($sqlFile === 'seed.sql' && !$shouldSeed) {
+        continue;
+    }
+
     $sqlPath = __DIR__ . '/../database/' . $sqlFile;
     $sql = file_get_contents($sqlPath);
     if ($sql === false) {
