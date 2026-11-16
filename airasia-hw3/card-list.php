@@ -28,7 +28,7 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
                         <div class="gift-card-copy">
                             <h2><a href="<?= $escape($detailUrl) ?>"><?= $escape($giftCard['cardName']) ?></a></h2>
                             <p><?= $escape($giftCard['description']) ?></p>
-                            <p class="required-points"><?= number_format((int) $giftCard['points']) ?> points required</p>
+                            <p class="required-points"><?= $escape(number_format((int) $giftCard['points'])) ?> points required</p>
                         </div>
                     </article>
                 <?php endforeach; ?>

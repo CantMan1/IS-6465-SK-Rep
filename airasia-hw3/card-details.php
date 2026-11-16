@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/validation.php';
 require_once __DIR__ . '/includes/db.php';
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -8,25 +9,16 @@ if (!isset($_SESSION['gift_card_csrf_token']) || !is_string($_SESSION['gift_card
     $_SESSION['gift_card_csrf_token'] = bin2hex(random_bytes(32));
 }
 
-$requestedId = $_GET['id'] ?? 'amazon';
-$cardId = is_string($requestedId) ? filter_var($requestedId, FILTER_VALIDATE_INT) : false;
-if (!is_string($requestedId) || ($cardId !== false && $cardId < 1)) {
+$requestedId = $_GET['id'] ?? '1';
+if (!isValidGiftCardId($requestedId)) {
     header('Location: card-list.php');
     exit;
 }
-
-if ($cardId === false) {
-    $statement = $pdo->prepare(
-        'SELECT cardId, cardName, cardType, cardValue, points, description FROM "GIFTCARD"
-        WHERE LOWER(REPLACE(cardType, \' \', \'\')) = LOWER(REPLACE(:cardType, \'-\', \'\'))'
-    );
-    $statement->execute(['cardType' => $requestedId]);
-} else {
-    $statement = $pdo->prepare(
-        'SELECT cardId, cardName, cardType, cardValue, points, description FROM "GIFTCARD" WHERE cardId = :cardId'
-    );
-    $statement->execute(['cardId' => $cardId]);
-}
+$cardId = (int) $requestedId;
+$statement = $pdo->prepare(
+    'SELECT cardId, cardName, cardType, cardValue, points, description FROM "GIFTCARD" WHERE cardId = :cardId'
+);
+$statement->execute(['cardId' => $cardId]);
 $giftCard = $statement->fetch(PDO::FETCH_ASSOC);
 if ($giftCard === false) {
     header('Location: card-list.php');
@@ -90,13 +82,13 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
                 <div class="gift-card-detail-copy">
                     <p><?= $escape($giftCard['description']) ?></p>
                     <p><strong>Gift Card Details</strong><br>
-                        Retailer: <?= $escape($giftCard['cardType']) ?><br>
-                        Value: $<?= number_format((float) $giftCard['cardValue'], 2) ?><br>
-                        Points: <?= number_format((int) $giftCard['points']) ?></p>
+                        Card Type: <?= $escape($giftCard['cardType']) ?><br>
+                        Value: $<?= $escape(number_format((float) $giftCard['cardValue'], 2)) ?><br>
+                        Points: <?= $escape(number_format((int) $giftCard['points'])) ?></p>
                 </div>
                 <div class="gift-card-detail-actions">
-                    <a href="card-update.php?id=<?= rawurlencode((string) $giftCard['cardId']) ?>">Update Gift Card</a>
-                    <form class="delete-gift-card-form" method="post" action="card-details.php?id=<?= rawurlencode((string) $giftCard['cardId']) ?>" onsubmit="return confirm('Delete this gift card? This action cannot be undone.');">
+                    <a href="card-update.php?id=<?= $escape(rawurlencode((string) $giftCard['cardId'])) ?>">Update Gift Card</a>
+                    <form class="delete-gift-card-form" method="post" action="card-details.php?id=<?= $escape(rawurlencode((string) $giftCard['cardId'])) ?>" onsubmit="return confirm('Delete this gift card? This action cannot be undone.');">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="csrf_token" value="<?= $escape($_SESSION['gift_card_csrf_token']) ?>">
                         <button type="submit">Delete Gift Card</button>

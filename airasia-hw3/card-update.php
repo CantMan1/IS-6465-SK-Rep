@@ -1,10 +1,12 @@
 <?php
+require_once __DIR__ . '/includes/validation.php';
+
 $requestedId = $_GET['id'] ?? null;
-$cardId = is_string($requestedId) ? filter_var($requestedId, FILTER_VALIDATE_INT) : false;
-if ($cardId === false || $cardId < 1) {
+if (!isValidGiftCardId($requestedId)) {
     header('Location: card-list.php');
     exit;
 }
+$cardId = (int) $requestedId;
 
 require_once __DIR__ . '/includes/db.php';
 $selectStatement = $pdo->prepare(
@@ -27,21 +29,21 @@ if (!isset($_SESSION['gift_card_csrf_token']) || !is_string($_SESSION['gift_card
 
 $requiredFieldMessages = [
     'gift_card_name' => 'Enter a gift card name.',
-    'retailer' => 'Enter a retailer.',
-    'card_value' => 'Enter a valid card value.',
+    'gift_card_type' => 'Select an allowed gift card type.',
+    'card_value' => 'Enter a positive card value.',
     'points' => 'Enter the points required.',
     'description' => 'Enter a description.',
 ];
 $fieldIds = [
     'gift_card_name' => 'gift-card-name',
-    'retailer' => 'retailer',
+    'gift_card_type' => 'gift-card-type',
     'card_value' => 'card-value',
     'points' => 'points',
     'description' => 'description',
 ];
 $defaultValues = [
     'gift_card_name' => $giftCard['cardName'],
-    'retailer' => $giftCard['cardType'],
+    'gift_card_type' => $giftCard['cardType'],
     'card_value' => '$' . number_format((float) $giftCard['cardValue'], 2),
     'points' => number_format((int) $giftCard['points']),
     'description' => $giftCard['description'],
@@ -65,30 +67,20 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             }
         }
 
-        if (!isset($errors['card_value'])) {
-            $value = $submittedValues['card_value'];
-            if (
-                preg_match('/^\$?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,2})?$/D', $value) !== 1
-                || !is_finite((float) str_replace(['$', ','], '', $value))
-            ) {
-                $errors['card_value'] = 'Enter a valid amount, such as $25.00.';
-            }
+        if (!isset($errors['gift_card_name']) && !isValidCardName($submittedValues['gift_card_name'])) {
+            $errors['gift_card_name'] = 'Use a card name no longer than 100 characters.';
         }
 
-        if (!isset($errors['points'])) {
-            $points = $submittedValues['points'];
-            if (preg_match('/^(?:\d+|\d{1,3}(?:,\d{3})+)$/D', $points) !== 1) {
-                $errors['points'] = 'Enter a whole number of points, such as 1,000.';
-            } else {
-                $normalizedPoints = ltrim(str_replace(',', '', $points), '0');
-                if (
-                    filter_var($normalizedPoints === '' ? '0' : $normalizedPoints, FILTER_VALIDATE_INT, [
-                        'options' => ['min_range' => 0],
-                    ]) === false
-                ) {
-                    $errors['points'] = 'Enter a whole number of points within the supported range.';
-                }
-            }
+        if (!isset($errors['gift_card_type']) && !isValidCardType($submittedValues['gift_card_type'])) {
+            $errors['gift_card_type'] = 'Select one of the listed gift card types.';
+        }
+
+        if (!isset($errors['card_value']) && !isValidCardValue($submittedValues['card_value'])) {
+            $errors['card_value'] = 'Enter a positive amount, such as $25.00.';
+        }
+
+        if (!isset($errors['points']) && !isValidPointsRequired($submittedValues['points'])) {
+            $errors['points'] = 'Enter a positive whole number of points, such as 1,000.';
         }
 
         if ($errors === []) {
@@ -103,7 +95,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             );
             $updateStatement->execute([
                 'cardName' => $submittedValues['gift_card_name'],
-                'cardType' => $submittedValues['retailer'],
+                'cardType' => $submittedValues['gift_card_type'],
                 'cardValue' => (float) str_replace(['$', ','], '', $submittedValues['card_value']),
                 'points' => (int) str_replace(',', '', $submittedValues['points']),
                 'description' => $submittedValues['description'],
@@ -134,7 +126,7 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
     <main class="page-shell">
         <?php $pageTitle = 'Update Gift Card'; require_once __DIR__ . '/includes/header.php'; ?>
         <section class="page-content">
-            <form class="gift-card-form" method="post" enctype="multipart/form-data" action="card-update.php?id=<?= rawurlencode((string) $giftCard['cardId']) ?>" novalidate>
+            <form class="gift-card-form" method="post" enctype="multipart/form-data" action="card-update.php?id=<?= $escape(rawurlencode((string) $giftCard['cardId'])) ?>" novalidate>
                 <input type="hidden" name="csrf_token" value="<?= $escape($_SESSION['gift_card_csrf_token']) ?>">
                 <div class="card-add-intro">
                     <p class="required-note">*Required Field</p>
@@ -167,10 +159,15 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
                     </div>
 
                     <div class="card-add-field">
-                        <label for="retailer">Retailer (required)</label>
-                        <input id="retailer" name="retailer" type="text" value="<?= $escape($submittedValues['retailer']) ?>" required<?= isset($errors['retailer']) ? ' aria-invalid="true" aria-describedby="retailer-error"' : '' ?>>
-                        <?php if (isset($errors['retailer'])): ?>
-                            <p class="form-field-error" id="retailer-error"><?= $escape($errors['retailer']) ?></p>
+                        <label for="gift-card-type">Gift card type (required)</label>
+                        <select id="gift-card-type" name="gift_card_type" required<?= isset($errors['gift_card_type']) ? ' aria-invalid="true" aria-describedby="gift-card-type-error"' : '' ?>>
+                            <option value="">Select a type *</option>
+                            <?php foreach (getAllowedCardTypes() as $cardType): ?>
+                                <option value="<?= $escape($cardType) ?>"<?= $submittedValues['gift_card_type'] === $cardType ? ' selected' : '' ?>><?= $escape($cardType) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <?php if (isset($errors['gift_card_type'])): ?>
+                            <p class="form-field-error" id="gift-card-type-error"><?= $escape($errors['gift_card_type']) ?></p>
                         <?php endif; ?>
                     </div>
 
