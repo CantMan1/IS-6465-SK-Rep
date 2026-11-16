@@ -1,3 +1,11 @@
+<?php
+require_once __DIR__ . '/includes/db.php';
+
+$giftCards = $pdo->query(
+    'SELECT cardId, cardName, points, description FROM "GIFTCARD" ORDER BY cardId'
+)->fetchAll(PDO::FETCH_ASSOC);
+$escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,36 +26,19 @@
         <section class="page-content card-list-content">
             <h1>Available Gift Cards</h1>
             <div class="gift-card-list">
-                <article class="gift-card-item">
-                    <a class="gift-card-image-link" href="card-details.php?id=amazon" aria-label="View Amazon Gift Card details">
-                        <img src="images/gift-card.png" alt="Amazon gift card">
-                    </a>
-                    <div class="gift-card-copy">
-                        <h2><a href="card-details.php?id=amazon">Amazon Gift Card</a></h2>
-                        <p>Shop books, electronics, home essentials, and more at Amazon.</p>
-                        <p class="required-points">1,000 points required</p>
-                    </div>
-                </article>
-                <article class="gift-card-item">
-                    <a class="gift-card-image-link" href="card-details.php?id=starbucks" aria-label="View Starbucks Gift Card details">
-                        <img src="images/gift-card.png" alt="Starbucks gift card">
-                    </a>
-                    <div class="gift-card-copy">
-                        <h2><a href="card-details.php?id=starbucks">Starbucks Gift Card</a></h2>
-                        <p>Enjoy coffee, tea, and treats at participating Starbucks stores.</p>
-                        <p class="required-points">1,000 points required</p>
-                    </div>
-                </article>
-                <article class="gift-card-item">
-                    <a class="gift-card-image-link" href="card-details.php?id=airasia" aria-label="View AirAsia Travel Gift Card details">
-                        <img src="images/gift-card.png" alt="AirAsia travel gift card">
-                    </a>
-                    <div class="gift-card-copy">
-                        <h2><a href="card-details.php?id=airasia">AirAsia Travel Gift Card</a></h2>
-                        <p>Put your points toward your next AirAsia trip and travel adventure.</p>
-                        <p class="required-points">2,000 points required</p>
-                    </div>
-                </article>
+                <?php foreach ($giftCards as $giftCard): ?>
+                    <?php $detailUrl = 'card-details.php?id=' . rawurlencode((string) $giftCard['cardId']); ?>
+                    <article class="gift-card-item">
+                        <a class="gift-card-image-link" href="<?= $escape($detailUrl) ?>" aria-label="View <?= $escape($giftCard['cardName']) ?> details">
+                            <img src="images/gift-card.png" alt="<?= $escape($giftCard['cardName']) ?>">
+                        </a>
+                        <div class="gift-card-copy">
+                            <h2><a href="<?= $escape($detailUrl) ?>"><?= $escape($giftCard['cardName']) ?></a></h2>
+                            <p><?= $escape($giftCard['description']) ?></p>
+                            <p class="required-points"><?= number_format((int) $giftCard['points']) ?> points required</p>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
             </div>
         </section>
     </main>

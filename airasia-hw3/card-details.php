@@ -1,38 +1,31 @@
 <?php
-$giftCards = [
-    'amazon' => [
-        'name' => 'Amazon Gift Card',
-        'description' => 'Shop books, electronics, home essentials, and more at Amazon.',
-        'retailer' => 'Amazon',
-        'value' => '$25.00',
-        'points' => '1,000',
-        'image' => 'images/gift-card.png',
-    ],
-    'starbucks' => [
-        'name' => 'Starbucks Gift Card',
-        'description' => 'Enjoy coffee, tea, and treats at participating Starbucks stores.',
-        'retailer' => 'Starbucks',
-        'value' => '$25.00',
-        'points' => '1,000',
-        'image' => 'images/gift-card.png',
-    ],
-    'airasia' => [
-        'name' => 'AirAsia Travel Gift Card',
-        'description' => 'Put your points toward your next AirAsia trip and travel adventure.',
-        'retailer' => 'AirAsia',
-        'value' => '$50.00',
-        'points' => '2,000',
-        'image' => 'images/gift-card.png',
-    ],
-];
+require_once __DIR__ . '/includes/db.php';
 
-$cardId = $_GET['id'] ?? 'amazon';
-if (!is_string($cardId) || !array_key_exists($cardId, $giftCards)) {
+$requestedId = $_GET['id'] ?? 'amazon';
+$cardId = is_string($requestedId) ? filter_var($requestedId, FILTER_VALIDATE_INT) : false;
+if (!is_string($requestedId) || ($cardId !== false && $cardId < 1)) {
     header('Location: card-list.php');
     exit;
 }
 
-$giftCard = $giftCards[$cardId];
+if ($cardId === false) {
+    $statement = $pdo->prepare(
+        'SELECT cardName, cardType, cardValue, points, description FROM "GIFTCARD"
+        WHERE LOWER(REPLACE(cardType, \' \', \'\')) = LOWER(REPLACE(:cardType, \'-\', \'\'))'
+    );
+    $statement->execute(['cardType' => $requestedId]);
+} else {
+    $statement = $pdo->prepare(
+        'SELECT cardName, cardType, cardValue, points, description FROM "GIFTCARD" WHERE cardId = :cardId'
+    );
+    $statement->execute(['cardId' => $cardId]);
+}
+$giftCard = $statement->fetch(PDO::FETCH_ASSOC);
+if ($giftCard === false) {
+    header('Location: card-list.php');
+    exit;
+}
+
 $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 ?>
 <!doctype html>
@@ -40,7 +33,7 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $escape($giftCard['name']) ?> Details | AirAsia Rewards</title>
+    <title><?= $escape($giftCard['cardName']) ?> Details | AirAsia Rewards</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="page-card-details">
@@ -51,14 +44,14 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
         </header>
         <section class="page-content card-details-content">
             <article class="gift-card-details">
-                <img src="<?= $escape($giftCard['image']) ?>" alt="<?= $escape($giftCard['name']) ?>">
-                <h2><?= $escape($giftCard['name']) ?></h2>
+                <img src="images/gift-card.png" alt="<?= $escape($giftCard['cardName']) ?>">
+                <h2><?= $escape($giftCard['cardName']) ?></h2>
                 <div class="gift-card-detail-copy">
                     <p><?= $escape($giftCard['description']) ?></p>
                     <p><strong>Gift Card Details</strong><br>
-                        Retailer: <?= $escape($giftCard['retailer']) ?><br>
-                        Value: <?= $escape($giftCard['value']) ?><br>
-                        Points: <?= $escape($giftCard['points']) ?></p>
+                        Retailer: <?= $escape($giftCard['cardType']) ?><br>
+                        Value: $<?= number_format((float) $giftCard['cardValue'], 2) ?><br>
+                        Points: <?= number_format((int) $giftCard['points']) ?></p>
                 </div>
                 <nav class="gift-card-detail-actions" aria-label="Gift card actions">
                     <a href="card-update.php">Update Gift Card</a>
