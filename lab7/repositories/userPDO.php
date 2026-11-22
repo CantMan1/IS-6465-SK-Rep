@@ -46,8 +46,14 @@ function deleteUser(PDO $pdo,int $id): void {
 function linkStudentToUser(PDO $pdo, array $user): void {
     $find=$pdo->prepare('SELECT student_id,user_id FROM students WHERE student_email=? COLLATE NOCASE');
     $find->execute([$user['email']]); $student=$find->fetch();
-    if ($student && empty($student['user_id'])) {
-        $up=$pdo->prepare('UPDATE students SET user_id=? WHERE student_id=? AND user_id IS NULL');
-        $up->execute([$user['user_id'],$student['student_id']]);
+    if ($student) {
+        if (!empty($student['user_id']) && (int)$student['user_id']!==(int)$user['user_id']) {
+            throw new PDOException('Student email is already linked to another account.');
+        }
+        $up=$pdo->prepare('UPDATE students SET student_name=?,user_id=? WHERE student_id=?');
+        $up->execute([$user['full_name'],$user['user_id'],$student['student_id']]);
+    } else {
+        $insert=$pdo->prepare('INSERT INTO students(student_name,student_email,user_id) VALUES(?,?,?)');
+        $insert->execute([$user['full_name'],$user['email'],$user['user_id']]);
     }
 }

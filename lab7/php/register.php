@@ -16,5 +16,8 @@ require __DIR__.'/../includes/header.php'; require __DIR__.'/../includes/nav.php
 <label class="form-label">Email</label><input class="form-control mb-3" type="email" name="email" maxlength="254" required value="<?=escapeHtml($_POST['email']??'')?>">
 <label class="form-label">Password (at least 10 characters)</label><input class="form-control mb-3" type="password" name="password" minlength="10" required>
 <label class="form-label">Confirm password</label><input class="form-control mb-3" type="password" name="confirm_password" minlength="10" required>
-<label class="form-label">Account type</label><select class="form-select mb-3" name="role" required><option value="Student">Student</option><option value="Tutor">Tutor</option></select>
+<label class="form-label">Account type</label><select class="form-select mb-3" name="role" required>
+<option value="Student" <?=($_POST['role']??'Student')==='Student'?'selected':''?>>Student</option>
+<option value="Administrator" <?=($_POST['role']??'')==='Administrator'?'selected':''?>>Admin</option>
+</select>
 <button class="btn btn-primary">Create Account</button></form></main><?php require __DIR__.'/../includes/footer.php'; ?>

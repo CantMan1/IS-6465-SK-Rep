@@ -15,15 +15,20 @@ function validateAccountInput(array $in, bool $registration=false): array {
 function registerAccount(PDO $pdo,array $in): int {
     [$errors,$v]=validateAccountInput($in,true);
     $role=(string)($in['role']??'');
-    if (!in_array($role,['Student','Tutor'],true)) $errors[]='Choose Student or Tutor.';
+    if ($role==='Admin') $role='Administrator';
+    if (!in_array($role,['Student','Tutor','Administrator'],true)) $errors[]='Choose Student or Admin.';
     if ($errors) throw new InvalidArgumentException(implode(' ',$errors));
     if (findUserByEmail($pdo,$v['email'])) throw new InvalidArgumentException('An account with that email already exists.');
     try {
+        $pdo->beginTransaction();
         $id=createUser($pdo,['full_name'=>$v['full_name'],'email'=>$v['email'],'password_hash'=>password_hash($v['password'],PASSWORD_DEFAULT),'role'=>$role]);
-        if ($role==='Student') linkStudentToUser($pdo,['user_id'=>$id,'email'=>$v['email']]);
+        if ($role==='Student') linkStudentToUser($pdo,['user_id'=>$id,'full_name'=>$v['full_name'],'email'=>$v['email']]);
+        $pdo->commit();
         return $id;
-    } catch (PDOException $e) {
-        if (stripos($e->getMessage(),'unique')!==false) throw new InvalidArgumentException('An account with that email already exists.');
+    } catch (Throwable $e) {
+        if ($pdo->inTransaction()) $pdo->rollBack();
+        if ($e instanceof PDOException && stripos($e->getMessage(),'unique')!==false)
+            throw new InvalidArgumentException('An account with that email already exists.');
         throw $e;
     }
 }

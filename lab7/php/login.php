@@ -26,4 +26,5 @@ require __DIR__.'/../includes/header.php'; require __DIR__.'/../includes/nav.php
 <form method="post" class="col-md-6"><input type="hidden" name="csrf_token" value="<?=escapeHtml(csrfToken())?>">
 <label class="form-label">Email</label><input class="form-control mb-3" type="email" name="email" required autocomplete="username">
 <label class="form-label">Password</label><input class="form-control mb-3" type="password" name="password" required autocomplete="current-password">
-<button class="btn btn-primary">Log In</button></form></main><?php require __DIR__.'/../includes/footer.php'; ?>
+<button class="btn btn-primary">Log In</button>
+<a class="btn btn-secondary ms-2" href="register.php">Register</a></form></main><?php require __DIR__.'/../includes/footer.php'; ?>
