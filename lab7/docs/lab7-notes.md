@@ -102,3 +102,7 @@ AI tools helped me understand this application by quickly and accurately summari
 
 
 part10-
+The left join pulls all records from the users table based on matching records from the student table.
+the users table is connected to the students table by the user_id field.
+Account info is stored separately from student profile info so that users could possess more than one account type. For instance, if a student also needed an admin account for the same application.
+An administrator might not have a matching record in the student table because not all administrators are students. 
