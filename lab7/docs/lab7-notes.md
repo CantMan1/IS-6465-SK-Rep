@@ -32,4 +32,11 @@ directed to login page.
 part5-
 image.png
 
-
+Test - What I did - Expected Result - Actual Result - Pass or Fail
+Register a Student Account - Register a new student type account - Student account is created - Student account is created - P
+Log in as student - log in with student credentials - Student can access protected student pages - Student can access protected student pages - P
+View or update profile - view profile - Profile information is displayed or saved - Profile information is displayed or saved - P
+Create tutoring request - requested tutoring session - A new request is created with status open - A new request is created with status open - P
+Edit open request - edited open request - Updated request information is displayed - Updated request information is displayed - P
+View my requests - clicked tutoring requests - Student sees the student’s own requests - Student sees the student’s own requests - P
+Log out - logged out - Session ends and login page appears - Session ends and login page appears - P
