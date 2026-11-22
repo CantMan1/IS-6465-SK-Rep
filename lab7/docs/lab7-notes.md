@@ -9,6 +9,18 @@ UM-01 -> create user account. Verified through register.php
 
 
 part2-
+sqlite3 tutoring.db < setup-database.sql
+sqlite3 tutoring.db < upgrade-to-user-management.sql
+
+sqlite3 tutoring.db
+.tables
+confirmed all 3 tables appeared
+
+![alt text](image-2.png)
+
+
+part3-
+
 
 
 
