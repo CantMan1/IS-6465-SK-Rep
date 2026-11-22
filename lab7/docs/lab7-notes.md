@@ -77,4 +77,18 @@ integration-tests.php -pass
 
 
 part9-
+Accurate AI Statement: register.php Renders the full-name, email, password, confirm-password, and account-type fields.
+Verification in the code: 
+<label class="form-label">Full name</label><input class="form-control mb-3" name="full_name" maxlength="120" required value="<?=escapeHtml($_POST['full_name']??'')?>">
+<label class="form-label">Email</label><input class="form-control mb-3" type="email" name="email" maxlength="254" required value="<?=escapeHtml($_POST['email']??'')?>">
+<label class="form-label">Password (at least 10 characters)</label><input class="form-control mb-3" type="password" name="password" minlength="10" required>
+<label class="form-label">Confirm password</label><input class="form-control mb-3" type="password" name="confirm_password" minlength="10" required>
+<label class="form-label">Account type</label><select class="form-select mb-3" name="role" required>
+<option value="Student" <?=($_POST['role']??'Student')==='Student'?'selected':''?>>Student</option>
+<option value="Administrator" <?=($_POST['role']??'')==='Administrator'?'selected':''?>>Admin</option
 
+Requirement - Presentation Page - Authentication or Authorization - Service or Validation - Repository or SQL - Database Table - Test Evidence
+Student registers an account - register.php - auth.php - userService.php - userPDO - users & students - can log into newly created account.
+Student logs in - register.php - register.php > verifyCsrfToken() - userPDO - userPDO - users - user can successfully log in and view student level pages only.
+Student creates a tutoring request - request-form.php - request-form.php > requireLogin() - process-request.php - studentPDO.php - tutoring_requests - student user is able to create a new tutoring request.
+User logs out - logout.php - startSecureSession() > verifyCsrfToken() > logoutSession() - verifyCsrfToken() > logoutSession() - N/A - N/A - User is redirected to the logout page and can no longer access site pages without logging back in. 
