@@ -71,4 +71,10 @@ Password hashing and verification belong in the application layer because it loc
 
 
 part8-
+validation-tests.php -pass
+user-management-tests.php -pass
+integration-tests.php -pass
+
+
+part9-
 
