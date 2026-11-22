@@ -92,3 +92,13 @@ Student registers an account - register.php - auth.php - userService.php - userP
 Student logs in - register.php - register.php > verifyCsrfToken() - userPDO - userPDO - users - user can successfully log in and view student level pages only.
 Student creates a tutoring request - request-form.php - request-form.php > requireLogin() - process-request.php - studentPDO.php - tutoring_requests - student user is able to create a new tutoring request.
 User logs out - logout.php - startSecureSession() > verifyCsrfToken() > logoutSession() - verifyCsrfToken() > logoutSession() - N/A - N/A - User is redirected to the logout page and can no longer access site pages without logging back in. 
+
+Suggested Test: A logged in student tries to access admin-users.php manually, they should be denied access.
+It does not seem like this specific scenario is covered under the provided test files.
+I would test it manually by logging in as a student and editing the URL to redirect me to the admin-only page.
+I think this test is appropriate for this application. There are existing tests similar to it that were provided in the test files, but not this test specifically. 
+
+AI tools helped me understand this application by quickly and accurately summarizing the updates between lab 6 and 7. Additioanlly, the AI updates between labs 6 and 7 were not made consistently with the results the professor got in the lecture, so there was a fair amount of debugging required for me to understand why my results differed. The AI really helped me trace these issues and quickly explained why I was recieving the results I was, and helped update the application so that I could continue with this lab. 
+
+
+part10-
