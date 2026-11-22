@@ -52,4 +52,23 @@ The user will either be blocked or asked to login again.
 
 
 part7-
+register.php
+register.php
+auth.php
+userService.php
+userService.php
+userPDO.php through createUser() and linkStudentToUser()
+users & students
+
+login.php
+login.php
+userPDO.php
+login.php
+Regenerates the session ID, clears existing session data, stores user_id, display_name, role, and last_activity. Generates a new CSRF token, redirects the user to profile.php.
+prevents session fixation attacks
+it reads the user's role from the users table and stores it in the session data.
+Password hashing and verification belong in the application layer because it localizes security processing and ensures that password handling is loaded consistently whenever users log in. The presentation page should only be used for displaying website visuals and collecting form data, and the database setup script should only be used for creating initial database structures. 
+
+
+part8-
 
