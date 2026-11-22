@@ -40,3 +40,16 @@ Create tutoring request - requested tutoring session - A new request is created 
 Edit open request - edited open request - Updated request information is displayed - Updated request information is displayed - P
 View my requests - clicked tutoring requests - Student sees the student’s own requests - Student sees the student’s own requests - P
 Log out - logged out - Session ends and login page appears - Session ends and login page appears - P
+
+
+part6-
+Authentication is when the user enters their credentials at the login page.
+Authorization is when a user is attempting to access privileged information, the system checks to see if the request is coming from an admin account. 
+Students are only able to view and edit requests that they create.
+Manage users is limited to admins, and the ability to see all requests is also limited to admins.
+The user will either be blocked or asked to login again.
+![alt text](image-4.png)
+
+
+part7-
+
