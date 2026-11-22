@@ -20,6 +20,10 @@ confirmed all 3 tables appeared
 
 
 part3-
+![alt text](image-3.png)
+
+
+part4-
 
 
 
